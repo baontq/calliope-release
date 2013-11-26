@@ -1,7 +1,7 @@
 package com.tuplejump.calliope
 
 import org.scalatest.{BeforeAndAfterAll, FunSpec}
-import spark.{Partition, SparkContext}
+import org.apache.spark.{Partition, SparkContext}
 import org.scalatest.matchers.{MustMatchers, ShouldMatchers}
 import java.nio.ByteBuffer
 import com.tuplejump.calliope.utils.RichByteBuffer
@@ -16,8 +16,8 @@ import Implicits._
  */
 class Cql3CassandraRDDSpec extends FunSpec with BeforeAndAfterAll with ShouldMatchers with MustMatchers {
 
-  val CASSANDRA_NODE_COUNT = 3
-  val CASSANDRA_NODE_LOCATIONS = List("127.0.0.1", "127.0.0.2", "127.0.0.3")
+  val CASSANDRA_NODE_COUNT = 1
+  val CASSANDRA_NODE_LOCATIONS = List("192.168.86.194")
   val TEST_KEYSPACE = "casSparkTest"
   val TEST_INPUT_COLUMN_FAMILY = "Words"
 

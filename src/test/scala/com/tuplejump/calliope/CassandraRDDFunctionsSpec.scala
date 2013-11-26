@@ -1,8 +1,8 @@
 package com.tuplejump.calliope
 
+import org.apache.spark.SparkContext
 import org.scalatest.{BeforeAndAfterAll, FunSpec}
 import org.scalatest.matchers.{MustMatchers, ShouldMatchers}
-import spark.SparkContext
 import java.nio.ByteBuffer
 import java.util.UUID
 import com.tuplejump.calliope.utils.RichByteBuffer
