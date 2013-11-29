@@ -29,13 +29,14 @@ import java.util.Date
 import org.apache.cassandra.hadoop.cql3.CqlPagingInputFormat
 import com.tuplejump.calliope.{CasBuilder}
 import com.tuplejump.calliope.utils.CassandraPartition
+import com.tuplejump.calliope.SparkHadoopMapReduceUtil
 
 
 private[calliope] class Cql3CassandraRDD[T: Manifest](sc: SparkContext,
                                                       @transient cas: CasBuilder,
                                                       unmarshaller: (Map[String, ByteBuffer], Map[String, ByteBuffer]) => T)
   extends RDD[T](sc, Nil)
-  //with HadoopMapReduceUtil
+  with SparkHadoopMapReduceUtil
   with Logging {
 
   // A Hadoop Configuration can be about 10 KB, which is pretty big, so broadcast it
@@ -54,8 +55,8 @@ private[calliope] class Cql3CassandraRDD[T: Manifest](sc: SparkContext,
     val format = new CqlPagingInputFormat
     val split = theSplit.asInstanceOf[CassandraPartition]
     //Set configuration
-    val attemptId = new TaskAttemptID(jobtrackerId, id, true, split.index, 0)
-    val hadoopAttemptContext = new TaskAttemptContext(conf, attemptId)
+    val attemptId = newTaskAttemptID(jobtrackerId, id, true, split.index, 0)
+    val hadoopAttemptContext = newTaskAttemptContext(conf, attemptId)
 
     val reader = format.createRecordReader(
       split.inputSplit.value, hadoopAttemptContext)
@@ -94,7 +95,7 @@ private[calliope] class Cql3CassandraRDD[T: Manifest](sc: SparkContext,
 
   def getPartitions: Array[Partition] = {
 
-    val jc = new JobContext(conf, jobId)
+    val jc = newJobContext(conf, jobId)
     val inputFormat = new CqlPagingInputFormat
     val rawSplits = inputFormat.getSplits(jc).toArray
     val result = new Array[Partition](rawSplits.size)

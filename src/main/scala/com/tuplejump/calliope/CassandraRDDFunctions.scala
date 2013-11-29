@@ -23,7 +23,6 @@ import org.apache.spark.SparkContext._
 import org.apache.spark.rdd.RDD
 import org.apache.spark.Logging
 
-//import org.apache.hadoop.mapreduce.HadoopMapReduceUtil
 import java.nio.ByteBuffer
 import org.apache.cassandra.thrift.{Column, Mutation, ColumnOrSuperColumn}
 import org.apache.cassandra.hadoop.ColumnFamilyOutputFormat

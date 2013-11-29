@@ -4,12 +4,11 @@ import scala.xml.NodeSeq
 
 object CalliopeBuild extends Build {
 
-  val VERSION = "0.7.3-1"
+  val VERSION = "0.8.0-3"
   val SCALA_VERSION = "2.9.3"
-  //val SPARK_VERSION = "0.7.2"
   val SPARK_VERSION = "0.8.0-incubating"
-  val CAS_VERSION = "1.2.6"
-  val THRIFT_VERSION = "0.7.0"
+  val CAS_VERSION = "2.0.3"
+  val THRIFT_VERSION = "0.9.1"
 
   lazy val calliope = {
     val dependencies = libraryDependencies ++= Seq(

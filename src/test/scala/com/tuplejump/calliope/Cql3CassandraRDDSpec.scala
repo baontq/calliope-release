@@ -28,7 +28,7 @@ class Cql3CassandraRDDSpec extends FunSpec with BeforeAndAfterAll with ShouldMat
 
   describe("Cql3 Cassandra RDD") {
     it("should be able to build and process RDD[U]") {
-      val cas = CasBuilder.cql3.withColumnFamily("cql3_test", "emp_read_test")
+      val cas = CasBuilder.cql3.withColumnFamily("cql3_test", "emp_read_test").onHost("192.168.86.194")
 
       import Cql3CRDDTransformers._
       val casrdd = sc.cql3Cassandra[Employee](cas)
@@ -41,7 +41,7 @@ class Cql3CassandraRDDSpec extends FunSpec with BeforeAndAfterAll with ShouldMat
     }
 
     it("should be able to use secodary indexes") {
-      val cas = CasBuilder.cql3.withColumnFamily("cql3_test", "emp_read_test").where("first_name = 'john'")
+      val cas = CasBuilder.cql3.withColumnFamily("cql3_test", "emp_read_test").where("first_name = 'john'").onHost("192.168.86.194")
 
       import Cql3CRDDTransformers._
       val casrdd = sc.cql3Cassandra[Employee](cas)
@@ -53,7 +53,6 @@ class Cql3CassandraRDDSpec extends FunSpec with BeforeAndAfterAll with ShouldMat
 
       result should not contain (Employee(20, 105, "jack", "carpenter"))
     }
-
 
   }
 
